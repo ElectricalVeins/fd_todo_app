@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.7",
+    "dotenv": "^8.2.0",
     "moment": "^2.24.0",
     "pg": "^7.17.1",
     "pg-hstore": "^2.3.3",
@@ -21,7 +22,6 @@
     "@babel/node": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/register": "^7.8.3",
-    "babel-register": "^6.26.0",
     "nodemon": "^2.0.2",
     "sequelize-cli": "^5.5.1"
   }
