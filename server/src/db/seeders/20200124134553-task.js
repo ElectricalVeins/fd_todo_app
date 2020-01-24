@@ -1,41 +1,44 @@
 'use strict';
 import moment from 'moment';
-import {User} from '../models';
 
-
-
-function generateTasks () {
-
-
+/**
+ *
+ * @param {Array<number>} usersIds
+ * @return {[]}
+ */
+function generateTasks (users) {
   const tasks = [];
-  for (let i = 0; i < 100;i++){
-
-    for(let j=0;j<10;j++){
-      tasks.push({
-        userId:i+1,
-        value:`User#${i+1} task value #${j+1}`,
-        isDone:Math.random()>0.5,
-        deadline: moment().set('date',70+j).toDate(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-                 })
+  for (let i = 0; i < users.length; i++) {
+    const tasksCount = Math.round( Math.random() * 10 );
+    for (let j = 0; j < tasksCount; j++) {
+      tasks.push( {
+                    userId: users[i].id,
+                    value: `UserID${users[i].id} task value #${j + 1}`,
+                    isDone: Math.random() > 0.5,
+                    deadline: moment().set( 'date', 7 + j ).toDate(),
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  } );
     }
-
   }
-
-    return tasks;
+  return tasks;
 }
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-    return queryInterface.bulkInsert('Tasks', generateTasks(), {});
+    return queryInterface.sequelize.query(
+      `SELECT id
+         from "Users";`
+    ).then( data => {
+      return queryInterface.bulkInsert( 'Tasks', generateTasks( data[0] ), {} );
+    } );
 
   },
 
   down: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkDelete('Tasks', null, {});
+    return queryInterface.bulkDelete( 'Tasks', null, {} );
 
   }
 };
