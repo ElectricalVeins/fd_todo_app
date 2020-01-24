@@ -21,12 +21,13 @@ async function getAllUsersWithTasks () {
 async function getAllTasksWithOwner () {
   try {
     const tasks = await Task.findAll({
-                                       where: {isDone:false},
+                                       where: { isDone: false },
                                        include: [
                                          {
                                            model: User,
                                            as: 'owner'
-                                         }],exclude:{passwordHash}
+                                         }],
+                                       attributes: { exclude: ['passwordHash'] }
                                      });
     return tasks.map(user => user.toJSON());
 
