@@ -13,7 +13,8 @@ module.exports = {
         allowNull: false
       },
       isDone: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue:false
       },
       deadline: {
         type: Sequelize.DATE,

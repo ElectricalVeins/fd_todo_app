@@ -3,4 +3,4 @@
 /server/.env
 /server/package-lock.json
 /package-lock.json
-/server/sequelize-meta.json
+/server/sequelize*.json

@@ -9,8 +9,7 @@ const config = {
     port: 5432,
     dialect: 'postgres',
     migrationStorage: 'json',
-    seedStorage: 'json',
-
+    seederStorage: 'json'
   },
   test: {},
   production: {},
