@@ -15,7 +15,7 @@ function generateTasks (users) {
                     userId: users[i].id,
                     value: `UserID${users[i].id} task value #${j + 1}`,
                     isDone: Math.random() > 0.5,
-                    deadline: moment().set( 'date', 7 + j ).toDate(),
+                    deadline: moment().set( 'date', 60 + j ).toDate(),
                     createdAt: new Date(),
                     updatedAt: new Date()
                   } );
