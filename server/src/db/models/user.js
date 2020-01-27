@@ -1,13 +1,15 @@
 'use strict';
+const  bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define( 'User', {
+  const User = sequelize.define('User', {
     firstName: {
-      type: DataTypes.STRING( 64 ),
+      type: DataTypes.STRING(64),
       is: /[A-Z][a-z]*/,
       allowNull: false
     },
     lastName: {
-      type: DataTypes.STRING( 64 ),
+      type: DataTypes.STRING(64),
       is: /[A-Z][a-z]*/,
       allowNull: false
     },
@@ -16,20 +18,29 @@ module.exports = (sequelize, DataTypes) => {
       is: /^[^ ^()*&?|\\/]{6,16}$/,
       allowNull: false,
     },
-    passwordHash: {
+    password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'passwordHash',
+      /*
+      set (value) {
+        bcrypt.hash(value, 10).then(hash => {
+                                      this.setDataValue('password', hash);
+                                    }
+        );
+      }
+      */
     },
     email: {
       type: DataTypes.STRING,
       allowNull: true,
       isEmail: true,
     }
-  }, {} );
+  }, {});
   User.associate = function (models) {
-    User.hasMany(models.Task,{
-      foreignKey:'userId',
-      as:'tasks'
+    User.hasMany(models.Task, {
+      foreignKey: 'userId',
+      as: 'tasks'
     });
   };
   return User;
