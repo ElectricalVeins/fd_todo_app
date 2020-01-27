@@ -111,13 +111,21 @@ app.get('/', function (req, res) {
 });
 
 app.post('/user', async (req, res) => {
-  console.log(req.body);
-  console.log(typeof req.body);
+  try {
+    console.log(req.body);
+    console.log(typeof req.body);
 
-  const createdUser= await User.create(req.body);
+    const createdUser = await User.create(req.body);
 
-  res.send(createdUser);
+    res.send(createdUser);
+  } catch (e) {
+    throw new Error();
+  }
 
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).send('smthng broke!');
 });
 
 app.listen(PORT, function () {
