@@ -1,3 +1,3 @@
-export default async function (err, req, res, next) {
-  res.status(400).send('bad request');
+export default function (err, req, res, next) {
+  res.status( 400 ).send( err );
 }
