@@ -1,5 +1,5 @@
 'use strict';
-const  bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -22,14 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       field: 'passwordHash',
-      /*
+
       set (value) {
-        bcrypt.hash(value, 10).then(hash => {
-                                      this.setDataValue('password', hash);
-                                    }
-        );
-      }
-      */
+        this.setDataValue('password', bcrypt.hashSync(value, 10));
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -37,6 +33,13 @@ module.exports = (sequelize, DataTypes) => {
       isEmail: true,
     }
   }, {});
+
+  //для одного человеека
+  User.prototype.comparePassword = function (password) {
+    return bcrypt.compare(password, this.password)
+                  .then(res => res);
+  };
+
   User.associate = function (models) {
     User.hasMany(models.Task, {
       foreignKey: 'userId',
