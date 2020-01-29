@@ -1,4 +1,4 @@
-import {userSchema, eeee} from '../../utils/dataValidation/user.js';
+import userSchema from '../../utils/dataValidation/user.js';
 
 function getUserValidateMW (isCreate = true) {
 
@@ -17,19 +17,5 @@ function getUserValidateMW (isCreate = true) {
 }
 
 export const validateUserDataOnCreate = getUserValidateMW();
-export const validateUserDataOnUpdate = getUserValidateMWupd( false );
+export const validateUserDataOnUpdate = getUserValidateMW( false );
 
-function getUserValidateMWupd () {
-
-  return async (req, res, next) => {
-    try {
-      console.log('MW',userSchema);
-      req.userData = await eeee.validateAsync( req.body, {
-
-      } );
-      next();
-    } catch (e) {
-      next( e );
-    }
-  };
-}
