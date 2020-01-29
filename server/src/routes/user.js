@@ -22,10 +22,4 @@ userRouter.delete( '/:userId',
                    deleteUserByPk
 );
 
-//CR +
-
-//UD +\-
-// Update проблема в userSchema;
-// Delete проблема в БД(у пользователя есть "tasks"(ON DELETE CASCADE выставить))
-
 export default userRouter;
