@@ -1,27 +1,35 @@
 'use strict';
 const bcrypt = require('bcrypt');
+import {
+  LOGIN_PATTERN,
+  PASSWORD_PATTERN,
+  USER_NAME_PATTERN
+} from '../../constants';
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
       type: DataTypes.STRING(64),
-      is: /[A-Z][a-z]*/,
+      is: USER_NAME_PATTERN,
       allowNull: false
     },
     lastName: {
       type: DataTypes.STRING(64),
-      is: /[A-Z][a-z]*/,
+      is: USER_NAME_PATTERN,
       allowNull: false
     },
     login: {
       type: DataTypes.STRING,
-      is: /^[^ ^()*&?|\\/]{6,16}$/,
+      is: LOGIN_PATTERN,
       allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       field: 'passwordHash',
+      validate: {
+        is: PASSWORD_PATTERN,
+      },
 
       set (value) {
         this.setDataValue('password', bcrypt.hashSync(value, 10));
@@ -36,8 +44,7 @@ module.exports = (sequelize, DataTypes) => {
 
   //для одного человеека
   User.prototype.comparePassword = function (password) {
-    return bcrypt.compare(password, this.password)
-                  .then(res => res);
+    return bcrypt.compare(password, this.password).then(res => res);
   };
 
   User.associate = function (models) {
