@@ -1,20 +1,35 @@
-import userSchema from '../../utils/dataValidation/index.js';
-import { ACTIONS } from '../../constants';
+import {userSchema, eeee} from '../../utils/dataValidation/user.js';
 
-export default async function getUserValidateMW (action) {
+function getUserValidateMW (isCreate = true) {
 
-  return async function (req, res, next) {
+  return async (req, res, next) => {
     try {
-      const { value } = await userSchema.validateAsync(req.body, {
+      req.userData = await userSchema.validateAsync( req.body, {
         context: {
-          isCreate: action === ACTIONS.CREATE
+          isCreate,
         }
-      });
-      req.userValue = value;
+      } );
       next();
     } catch (e) {
-      next(e);
+      next( e );
     }
   };
 }
 
+export const validateUserDataOnCreate = getUserValidateMW();
+export const validateUserDataOnUpdate = getUserValidateMWupd( false );
+
+function getUserValidateMWupd () {
+
+  return async (req, res, next) => {
+    try {
+      console.log('MW',userSchema);
+      req.userData = await eeee.validateAsync( req.body, {
+
+      } );
+      next();
+    } catch (e) {
+      next( e );
+    }
+  };
+}
