@@ -33,7 +33,6 @@ export async function getUserByPk( req, res, next ) {
 
 export async function updateUser( req, res, next ) {
     try {
-        console.log('controller',req.body);
         const [updatedRowsCount, updatedRows] = await User.update( req.userData, {
             where: {
                 id: req.params.userId
@@ -57,7 +56,7 @@ export async function deleteUserByPk( req, res, next ) {
         const deletedRowCount = await User.destroy( {
                                                         where: {
                                                             id: req.params.userId
-                                                        }
+                                                        },
                                                     } );
         if ( deletedRowCount ) {
             return res.send( `${ deletedRowCount }` );

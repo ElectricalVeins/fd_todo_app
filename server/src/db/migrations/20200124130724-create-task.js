@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tasks', {
+    return queryInterface.createTable( 'Tasks', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,25 +10,25 @@ module.exports = {
       },
       value: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       isDone: {
         type: Sequelize.BOOLEAN,
-        defaultValue:false
+        defaultValue: false,
+        allowNull: false,
       },
       deadline: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
         },
-        onDelete:'SET NULL',
-        onUpdate:'CASCADE',
+        onDelete: 'SET NULL', //cascade?
+        onUpdate: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
@@ -38,9 +38,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    } );
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tasks');
+    return queryInterface.dropTable( 'Tasks' );
   }
 };

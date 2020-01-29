@@ -1,20 +1,17 @@
 'use strict';
-const bcrypt = require('bcrypt');
-import {
-  LOGIN_PATTERN,
-  PASSWORD_PATTERN,
-  USER_NAME_PATTERN
-} from '../../constants';
+import { LOGIN_PATTERN, USER_NAME_PATTERN } from '../../constants';
+
+const bcrypt = require( 'bcrypt' );
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define( 'User', {
     firstName: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING( 64 ),
       is: USER_NAME_PATTERN,
       allowNull: false
     },
     lastName: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING( 64 ),
       is: USER_NAME_PATTERN,
       allowNull: false
     },
@@ -28,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'passwordHash',
       set (value) {
-        this.setDataValue('password', bcrypt.hashSync(value, 10));
+        this.setDataValue( 'password', bcrypt.hashSync( value, 10 ) );
       },
     },
     email: {
@@ -36,18 +33,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       isEmail: true,
     }
-  }, {});
+  }, {} );
 
-  //для одного человеека
   User.prototype.comparePassword = function (password) {
-    return bcrypt.compare(password, this.password).then(res => res);
+    return bcrypt.compare( password, this.password )
+                 .then( res => res );
   };
 
   User.associate = function (models) {
-    User.hasMany(models.Task, {
+    User.hasMany( models.Task, {
       foreignKey: 'userId',
       as: 'tasks'
-    });
+    } );
   };
   return User;
 };
