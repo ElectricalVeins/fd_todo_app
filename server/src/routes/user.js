@@ -1,11 +1,17 @@
 import express from 'express';
 import { createUser } from '../controllers/user.js';
-import validateUser from '../middlewares/user/validateUser.js';
+import getUserValidateMW from '../middlewares/user/validateUser.js';
+import { ACTIONS } from '../constants';
 
 const userRouter = express.Router();
 
-userRouter.post('/', validateUser,
+userRouter.post('/',
+                getUserValidateMW(ACTIONS.CREATE),
                 createUser);
-userRouter.get('/:id', createUser);
+userRouter.patch('/',
+                getUserValidateMW(ACTIONS.UPDATE),
+                );
+
+
 
 export default userRouter;
