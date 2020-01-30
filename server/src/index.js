@@ -19,9 +19,11 @@ app.use(express.json());
 //Routing
 app.use(router);
 
+
 //Error Handling
 app.use(errorHandlers.applicationErrorHandler);
 app.use(errorHandlers.sequelizeErrorHandler);
+app.use(errorHandlers.validationErrorHandler);
 app.use((err, req, res) => {
   res.status(500).send('Internal server error');
 });

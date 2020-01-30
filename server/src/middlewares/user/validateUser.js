@@ -11,7 +11,9 @@ function getUserValidateMW (isCreate = true) {
       } );
       next();
     } catch (e) {
+
       next( e );
+
     }
   };
 }
