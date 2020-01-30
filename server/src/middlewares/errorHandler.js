@@ -1,3 +1,9 @@
+import ApplicationError from '../utils/application_errors/ApplicationError.js';
+
 export default function (err, req, res, next) {
-  res.status( 400 ).send( err );
+  if(err instanceof ApplicationError){
+
+  }else{
+
+  }
 }
