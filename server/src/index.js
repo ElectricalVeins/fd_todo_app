@@ -1,9 +1,6 @@
 import express from 'express';
 import router from './routes';
-import applicationErrorHandler
-  from './middlewares/error_handlers/applicationErrorHandler.js';
-import sequelizeErrorHandler
-  from './middlewares/error_handlers/sequelizeErrorHandler.js';
+import errorHandlers from './middlewares/error_handlers'
 
 const cors = require('cors');
 
@@ -23,8 +20,8 @@ app.use(express.json());
 app.use(router);
 
 //Error Handling
-app.use(applicationErrorHandler);
-app.use(sequelizeErrorHandler);
+app.use(errorHandlers.applicationErrorHandler);
+app.use(errorHandlers.sequelizeErrorHandler);
 app.use((err, req, res) => {
   res.status(500).send('Internal server error');
 });
