@@ -1,4 +1,5 @@
 import { User } from './../db/models';
+import AppErrors from '../utils/application_errors';
 
 export async function createUser( req, res, next ) {
     try {
@@ -9,7 +10,7 @@ export async function createUser( req, res, next ) {
             return res.status( 201 ).send( data );
         }
     } catch ( e ) {
-        next( e );
+        next( new AppErrors.BadRequestError );
     }
 }
 
@@ -27,7 +28,7 @@ export async function getUserByPk( req, res, next ) {
         }
         next( new Error() );
     } catch ( e ) {
-        next( e );
+        next( new AppErrors.ResourceNotFoundError );
     }
 }
 
@@ -47,7 +48,7 @@ export async function updateUser( req, res, next ) {
         }
         next( new Error() );
     } catch ( e ) {
-        next( e );
+        next( new AppErrors.ResourceNotFoundError );
     }
 }
 
@@ -63,6 +64,6 @@ export async function deleteUserByPk( req, res, next ) {
         }
         next( '404 Resource not found' );
     } catch ( e ) {
-        next( e );
+        next( new AppErrors.ResourceNotFoundError );
     }
 }
