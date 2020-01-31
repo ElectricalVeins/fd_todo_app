@@ -1,4 +1,4 @@
-import userSchema from '../../utils/data_validation/user.js';
+import userSchema from '../../utils/data_validation';
 
 function getUserValidateMW (isCreate = true) {
 
