@@ -9,7 +9,7 @@ const taskRouter = express.Router();
 
 
 taskRouter.post('/',
-               // validateTaskOnCreate,
+               validateTaskOnCreate,
                 createTask);
 
 taskRouter.get('/:taskId',
@@ -17,7 +17,7 @@ taskRouter.get('/:taskId',
 );
 
 taskRouter.patch('/:taskId',
-                 //validateTaskOnUpdate
+                 validateTaskOnUpdate
                  );
 
 taskRouter.delete('/:taskId',);
