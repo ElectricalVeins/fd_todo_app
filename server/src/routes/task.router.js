@@ -1,15 +1,15 @@
 import express from 'express';
-import {
-  validateTaskOnCreate,
-  validateTaskOnUpdate
-} from '../middlewares/task/validateTask.js';
 import { createTask, getTask } from '../controllers/task.controller.js';
+import createValidationMW
+  from '../middlewares/validations/createValidationMW.js';
+import { ACTIONS } from '../constants';
+import validationSchemas from '../utils/data_validation';
 
 const taskRouter = express.Router();
-
+const createTaskValidationMW = createValidationMW(validationSchemas.taskSchema);
 
 taskRouter.post('/',
-               validateTaskOnCreate,
+                createTaskValidationMW(ACTIONS.CREATE),
                 createTask);
 
 taskRouter.get('/:taskId',
@@ -17,10 +17,9 @@ taskRouter.get('/:taskId',
 );
 
 taskRouter.patch('/:taskId',
-                 validateTaskOnUpdate
-                 );
+                 createTaskValidationMW(ACTIONS.UPDATE)
+);
 
 taskRouter.delete('/:taskId',);
-
 
 export default taskRouter;
