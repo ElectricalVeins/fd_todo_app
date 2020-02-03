@@ -11,13 +11,12 @@ export default async function (req, res, next) {
         id: actorId,
       };
       next();
-
     } else {
-      next(new AppError.UnauthorizedError())
-      ;
+      next(new AppError.UnauthorizedError());
     }
 
   } catch (e) {
     next(e);
   }
+
 }

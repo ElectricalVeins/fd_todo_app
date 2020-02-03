@@ -25,7 +25,6 @@ module.exports = {
     }).then(value => {
       return queryInterface.addConstraint('UserRoles', ['userId', 'roleId'], {
         type: 'primary key',
-
       });
     });
 
