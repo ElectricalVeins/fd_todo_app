@@ -1,6 +1,6 @@
 import AppErrors from '../../utils/application_errors';
 
-export default object => action => async (req, res, next) => {
+export default entity => action => async (req, res, next) => {
   try {
 
 
