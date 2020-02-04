@@ -1,5 +1,4 @@
 'use strict';
-
 /*
 const orderList = [
   {
@@ -38,9 +37,7 @@ function getTotalOrderPrice (order, getDiscount) {
 console.log(getTotalOrderPrice(orderList, twentyPercentDiscount));
 //example of high-order function
 //===================================================================
-*/
 
-/*
 function getOrderPriceWithDiscount (discountPercent, price, count) {
   const totalPrice = price * count;
   return totalPrice - totalPrice * (discountPercent / 100);
@@ -63,7 +60,6 @@ function getDiscountPrice (discountPercent) {
 
 const result = getDiscountPrice(10)(5400)(2);
 console.log(result);
-*/
 
 //example of carrying
 
@@ -72,3 +68,240 @@ function partial (fn, ...args) {
     return fn(...args, ..._arg);
   };
 }
+*/
+/*
+class Component {
+
+  execute () {
+
+  }
+
+}
+
+class Leaf extends Component {
+
+  /!**
+   *
+   * @param {number} count
+   *!/
+  constructor (count) {
+    super();
+    this._count = count;
+  }
+
+  get count () {
+    return this._count;
+  }
+
+  set count (value) {
+    if (Number.isInteger(value) && value > 0) {
+      this._count = value;
+    } else {
+      throw new Error();
+    }
+  }
+
+  execute () {
+    return this.count;
+  }
+
+}
+
+class Composite extends Component {
+  /!**
+   *
+   * @param {Array<Component>} children
+   *!/
+  constructor (children = []) {
+    super();
+    this._children = [];
+
+  }
+
+  /!**
+   *
+   * @param{Array<Component>} value
+   *!/
+  set children (value) {
+
+  }
+
+  get children () {
+    return this._children;
+  }
+
+  /!**
+   *
+   * @param {Component} child
+   *!/
+  addChild (child) {
+    if (child instanceof Component) {
+      this.children.push(child);
+    }
+  }
+
+  execute () {
+    return this.children.reduce((count, item) => {
+      return count + item.execute();
+    });
+  }
+}
+*/
+
+/*
+
+class MenuComponent {
+
+  execute () {}
+
+}
+
+class MenuItem extends MenuComponent {
+
+  /!**
+   *
+   * @param {String} name
+   *!/
+  constructor (name) {
+    super();
+    this._name = name;
+  }
+
+  get menuItemName () {
+    return this._name;
+  }
+
+  set menuItemName (value) {
+    this._name = value;
+  }
+
+  execute (prefix) {
+    console.log(`${prefix} ${this.menuItemName}`);
+  }
+}
+
+class MenuPosition extends MenuComponent {
+  constructor (name,menuChildren=[]) {
+    super();
+    this._menuChildren = menuChildren;
+  }
+
+  get menuChildren () {
+    return this._menuChildren;
+  }
+
+  set menuChildren (value) {
+    this._menuChildren = value;
+  }
+
+  addChild (child) {
+    if (child instanceof MenuComponent) {
+      this.menuChildren.push(child);
+    } else {
+      throw new TypeError();
+    }
+  }
+
+  removeChild (child) {
+    const childIndex = this.child.findIndex(child);
+
+    if (childIndex !== -1) {
+      this.positions.splice(positionIndex, 1);
+    } else {
+      throw new Error();
+    }
+
+  }
+
+  execute (prefix) {
+    console.log(`${prefix} ${this.name}`);
+    this.menuChildren.forEach((item, index) => {
+      console.log(item.execute);
+      item.execute(`${prefix
+                      ? `\t${prefix}.`
+                      : `\t`}${index + 1}`);
+    });
+  }
+
+}
+
+const Menu = new MenuPosition([
+                                new MenuPosition([
+                                                   new MenuItem('1.1'),
+                                                   new MenuItem('1.2'),
+                                                   new MenuItem('1.3'),
+                                                   new MenuItem('1.4'),
+                                                   new MenuPosition([
+                                                                      new MenuItem(
+                                                                        '1.4.1'),
+                                                                      new MenuItem(
+                                                                        '1.4.2'),
+                                                                      new MenuItem(
+                                                                        '1.4.3'),
+                                                                    ]),
+                                                   new MenuItem('1.5'),
+                                                   new MenuItem('1.6'),
+                                                 ]),
+                                new MenuPosition([
+                                                   new MenuItem('2.1'),
+                                                   new MenuItem('2.2'),
+                                                   new MenuItem('2.3'),
+                                                   new MenuPosition([
+                                                                      new MenuItem(
+                                                                        '2.3.1'),
+                                                                      new MenuItem(
+                                                                        '2.3.2'),
+                                                                    ]),
+                                                   new MenuItem('2.4'),
+                                                   new MenuPosition([
+                                                                      new MenuItem(
+                                                                        '2.4.1'),
+                                                                      new MenuItem(
+                                                                        '2.4.2'),
+                                                                      new MenuItem(
+                                                                        '2.4.3'),
+                                                                      new MenuItem(
+                                                                        '2.4.4'),
+                                                                      new MenuPosition(
+                                                                        [
+                                                                          new MenuItem(
+                                                                            '2.4.4.1'),
+                                                                          new MenuItem(
+                                                                            '2.4.4.2'),
+                                                                          new MenuItem(
+                                                                            '2.4.4.3'),
+                                                                        ])
+                                                                    ]),
+                                                   new MenuItem('2.5'),
+                                                 ]),
+                                new MenuPosition([]),
+                              ]);
+*/
+///////////////////////////////
+
+/*
+action
+isOwner
+entity - delete
+  property -
+    value - create
+          - update
+actor
+ */
+class Action{}
+
+class ValueAction extends Action {
+
+}
+
+
+const ROLES_PERMISSIONS = new Map();
+
+ROLES_PERMISSIONS.set('ADMIN', new Permission([
+                                                new ActionRule('CREATE', [
+                                                  new EntityRule()
+                                                ]),
+                                                new ActionRule('READ'),
+                                                new ActionRule('UPDATE'),
+                                                new ActionRule('DELETE'),
+                                              ]));
