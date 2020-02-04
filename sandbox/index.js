@@ -277,31 +277,42 @@ const Menu = new MenuPosition([
                                 new MenuPosition([]),
                               ]);
 */
+
 ///////////////////////////////
 
-/*
-action
-isOwner
-entity - delete
-  property -
-    value - create
-          - update
-actor
- */
-class Action{}
-
-class ValueAction extends Action {
-
+class Rule {
 }
 
+class Permission {
+  checkPermission () {}
+}
 
-const ROLES_PERMISSIONS = new Map();
+//leaf for property, entity, property value
+class PermissionRule extends Rule {
+  constructor (accessValues) {
+    super();
+    this._accessValues = accessValues;
+  }
 
-ROLES_PERMISSIONS.set('ADMIN', new Permission([
-                                                new ActionRule('CREATE', [
-                                                  new EntityRule()
-                                                ]),
-                                                new ActionRule('READ'),
-                                                new ActionRule('UPDATE'),
-                                                new ActionRule('DELETE'),
-                                              ]));
+  checkPermission (value) {
+    return this._accessValues.includes(value);
+  }
+}
+
+class RoleActionRule extends Rule {
+  constructor () {
+    super();
+    this.permissionMap = [];
+  }
+
+  addPermission(action,rule){
+    this.permissionMap.set(action,role);
+  }
+
+  checkPermission (action,value) {
+     const rule = this.permissionMap.get(action);
+     if(rule){
+       return rule.checkPermission(value)
+     }else{return false}
+  }
+}
