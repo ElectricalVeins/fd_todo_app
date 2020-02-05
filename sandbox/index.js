@@ -279,40 +279,152 @@ const Menu = new MenuPosition([
 */
 
 ///////////////////////////////
+/*
+ROLE => ACTION => PROPERTY => VALUE
+*/
 
-class Rule {
+//CREATE => TASK
+//CREATE => USER=>ROLE=>'USER' | 'MODERATOR'
+const rule = {
+  CREATE: {
+    TASK: TRUE,
+    USER: {
+      ROLE: ['USER', 'MODERATOR']
+    },
+  },
+  READ: {
+    TASK: {
+      isOwner: TRUE,
+    },
+    USER: {
+      isOwner: TRUE,
+    },
+  },
+  UPDATE: {},
+  DELETE: {},
+};
+
+const actionOption = {
+  action: 'Create',
+  entity: 'task',
+  value: {
+    value: 'task1 test',
+  },
+  actor: {
+    role: [],
+    id: 14,
+  }
+};
+
+
+class PermissionHandler{
+
+  checkPermission(options){
+
+  }
+
 }
 
-class Permission {
-  checkPermission () {}
-}
-
-//leaf for property, entity, property value
-class PermissionRule extends Rule {
-  constructor (accessValues) {
+class PermissionComposite extends PermissionHandler{
+  constructor (permissionHandlers) {
     super();
-    this._accessValues = accessValues;
+    this._permissionHandlers=permissionHandlers
   }
 
-  checkPermission (value) {
-    return this._accessValues.includes(value);
+  get permissionHandlers(){
+    return this._permissionHandlers
+  }
+
+  /*set permissionHandlers(value){
+    return this._permissionHandlers = value
+  }*/
+
+  checkPermission (options) {
+
+    return this.permissionHandlers
   }
 }
 
-class RoleActionRule extends Rule {
-  constructor () {
-    super();
-    this.permissionMap = [];
-  }
+class PropertyHandler extends PermissionHandler{
 
-  addPermission(action,rule){
-    this.permissionMap.set(action,role);
-  }
 
-  checkPermission (action,value) {
-     const rule = this.permissionMap.get(action);
-     if(rule){
-       return rule.checkPermission(value)
-     }else{return false}
-  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

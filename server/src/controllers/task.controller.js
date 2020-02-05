@@ -51,3 +51,19 @@ export async function deleteTask (req, res, next) {
     next(e);
   }
 }
+
+export async function getTasks (req, res, next) {
+  try {
+
+    //res.send(req.query);
+
+    const tasks = await Task.findAll(req.query);
+
+    res.send(tasks);
+  } catch (e) {
+    next(e);
+  }
+}
+
+//isDone,offset,limit,deadline(?)
+//
