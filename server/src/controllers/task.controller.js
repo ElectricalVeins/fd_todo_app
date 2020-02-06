@@ -6,14 +6,11 @@ export async function createTask (req, res, next) {
     const { authorizationData: { id: userId } } = req;
     const { body: taskData } = req;
 
-    console.log(userId);
-    console.log(taskData);
-
     const createdTask = await Task.create({
                                             ...taskData,
                                             userId
                                           });
-    console.log(createdTask);
+
     return res.status(201).send(createdTask.get());
 
   } catch (e) {
