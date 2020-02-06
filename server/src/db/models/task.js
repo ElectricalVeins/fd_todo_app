@@ -17,10 +17,7 @@ module.exports = ( sequelize, DataTypes ) => {
         deadline: {
             type: DataTypes.DATE,
             allowNull: false,
-            validate: {
-                isDate: true,
-                isAfter: new Date()
-            }
+            //validate: { isDate: true,isAfter: new Date()}
         },
         userId: {
             type: DataTypes.INTEGER,
