@@ -14,23 +14,23 @@ const createTaskPermissionMW = createPermissionMw(ENTITIES.TASK);
 const createTaskValidationMW = createValidationMW(validationSchemas.taskSchema);
 
 taskRouter.post('/',
-    createTaskPermissionMW(ACTIONS.CREATE),
+   // createTaskPermissionMW(ACTIONS.CREATE),
     createTaskValidationMW(ACTIONS.CREATE),
     createTask);
 
 taskRouter.get('/:taskId',
-    createTaskPermissionMW(ACTIONS.READ),
+ //   createTaskPermissionMW(ACTIONS.READ),
     getTask
 );
 
 taskRouter.patch('/:taskId',
-    createTaskPermissionMW(ACTIONS.UPDATE),
+  //  createTaskPermissionMW(ACTIONS.UPDATE),
     createTaskValidationMW(ACTIONS.UPDATE),
     updateTask
 );
 
 taskRouter.delete('/:taskId',
-    createTaskPermissionMW(ACTIONS.DELETE),
+  //  createTaskPermissionMW(ACTIONS.DELETE),
     deleteTask
 );
 
