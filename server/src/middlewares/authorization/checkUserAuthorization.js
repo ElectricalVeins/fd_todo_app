@@ -7,7 +7,7 @@ export default async function (req, res, next) {
 
     if (actorId) {
 
-      req.authorizeData = {
+      req.authorizationData = {
         id: actorId,
       };
       next();
