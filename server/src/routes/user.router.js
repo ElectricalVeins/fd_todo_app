@@ -19,24 +19,24 @@ const createUserValidationMW = createValidationMW(validationSchemas.userSchema);
 
 
 userRouter.post('/',
-                createUserPermissionsMW(ACTIONS.CREATE),
+                //createUserPermissionsMW(ACTIONS.CREATE),
                 createUserValidationMW(ACTIONS.CREATE),
                 createUser
 );
 
 userRouter.get('/:userId',
-               createUserPermissionsMW(ACTIONS.READ),
+               //createUserPermissionsMW(ACTIONS.READ),
                getUserByPk,
 );
 
 userRouter.patch('/:userId',
-                 createUserPermissionsMW(ACTIONS.UPDATE),
+                // createUserPermissionsMW(ACTIONS.UPDATE),
                  createUserValidationMW(ACTIONS.UPDATE),
                  updateUser
 );
 
 userRouter.delete('/:userId',
-                  createUserPermissionsMW(ACTIONS.DELETE),
+                 // createUserPermissionsMW(ACTIONS.DELETE),
                   deleteUserByPk
 );
 
